@@ -14,7 +14,8 @@ Adapters.Register({
     dataVersion    = 1,
     minDataVersion = 1,
     identity       = { scope = "persistent" },
-    dependency     = { name = "...", Available = function() end, Version = function() end },
+    dependency     = { name = "...", Available = function() end, Present = function() end,
+                       Version = function() end },
 
     capabilities = { snapshot = true, transform = true, materialize = true,
                      properties = true, remove = true },
@@ -96,6 +97,11 @@ Adapters.Register({
 
       An `Available` that throws is reported as an adapter fault, distinct from a missing
       dependency.
+    </ParamField>
+    <ParamField path="Present" type="function">
+      `-> boolean`. Optional. Is the addon installed here **at all**? Asked only after
+      `Available` has refused. Returning `false` shows your adapter as **Not installed**
+      rather than as a fault. See [Dependencies](/sdk/capabilities#dependencies).
     </ParamField>
     <ParamField path="Version" type="function">
       `-> string|nil`. Reported in diagnostics and **never compared**. It gates nothing.

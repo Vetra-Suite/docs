@@ -82,13 +82,16 @@ Is an adapter with this id registered here?
 IsAvailable(id: string) -> boolean available, string|nil reason
 ```
 
-Is it registered **and** is its optional dependency present?
+Is it registered, **not disabled** by an administrator, **and** is its optional dependency
+present?
 
 Evaluated on every call rather than cached: an addon can be unloaded, and a cached "available"
 is a claim that goes stale silently.
 
-An adapter with no dependency is available. An adapter whose `Available` throws is reported
-unavailable, with a reason distinguishing a fault from a missing dependency.
+An adapter with no dependency is available unless an administrator disabled it. A disabled
+adapter answers `false` with the reason "disabled on this server by an administrator". An
+adapter whose `Available` throws is reported unavailable, with a reason distinguishing a fault
+from a missing dependency.
 
 ### `DependencyVersion(id)`
 
@@ -119,6 +122,8 @@ A plain-data description of one adapter, freshly built, holding no functions.
     capabilities   = { "materialize", "properties", "remove", "snapshot", "transform" },
     official       = false,
     available      = true,
+    presence       = "available",  -- see below
+    disabled       = nil,          -- { by = "<SteamID>", at = <unix time> } when disabled
     reason         = nil,          -- present only when `available` is false
     dependency     = {             -- present only when one is declared
         name    = "Acme Turrets",
@@ -129,6 +134,17 @@ A plain-data description of one adapter, freshly built, holding no functions.
 
 `capabilities` is a sorted array of the names this adapter declared **and** this build
 honours. Third-party text (`reason`, `dependency.version`) is truncated to 240 characters.
+
+`presence` says how the adapter stands on this server, for an operator's list. It never
+changes what captures: only an available adapter does.
+
+| `presence` | Meaning |
+| --- | --- |
+| `available` | Registered, and its dependency (if any) is satisfied |
+| `absent` | Its dependency's optional `Present` returned false: the addon is not installed here. Expected, not a fault |
+| `unavailable` | The addon is there (or `Present` is not declared) and `Available` refused |
+| `error` | `Available` or `Present` raised |
+| `disabled` | An administrator switched it off |
 
 Returns `nil` if no such adapter is registered.
 

@@ -104,7 +104,7 @@ call, and it can only do that if the operation is shaped consistently.
     Blueprints' own adapters **refuse** a model change rather than attempting one, because
     swapping a model in place rebuilds the physics mesh, loses the motion state and
     invalidates every constraint the entity is part of. The honest operation is a replace
-    (remove plus rebuild), and version 1.0 deliberately does not implement it.
+    (remove plus rebuild), and Blueprints deliberately does not implement it.
 
     If a property of yours is structural in that way, refuse it in phase 1 with a reason that
     names what would be needed.
@@ -121,7 +121,7 @@ call, and it can only do that if the operation is shaped consistently.
 
   <Accordion title="Relationships" icon="link">
     Constraints, welds, ropes and parenting are not properties of one object. Nothing in
-    version 1.0 versions them, and an adapter that tried would be describing a graph in a
+    Blueprints versions them, and an adapter that tried would be describing a graph in a
     flat scalar map.
   </Accordion>
 </AccordionGroup>

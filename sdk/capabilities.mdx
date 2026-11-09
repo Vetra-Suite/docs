@@ -164,6 +164,7 @@ dependency = {
         if not DarkRP then return false, "DarkRP is not running on this server" end
         return true
     end,
+    Present   = function() return DarkRP ~= nil end,  -- optional: is it installed at all?
     Version   = function() return "2.7.0" end,  -- optional, diagnostics only
 },
 ```
@@ -173,6 +174,12 @@ dependency = {
   plan, so write it.
 - An `Available` that throws is reported as an adapter fault, distinct from a missing
   dependency.
+- `Present` is optional and answers one narrower question: is the addon installed here at
+  all? It is asked only after `Available` has refused. Declare it if your adapter can be
+  installed on servers that do not run the addon: an administrator then sees your adapter as
+  **Not installed**, hidden by default, instead of as a fault. Without it, every refusal is
+  shown as **Unavailable**, which is correct but noisier. It changes nothing about what
+  captures.
 - `Version` is reported and **never compared**. It gates nothing.
 
 <Warning>
@@ -182,3 +189,15 @@ of the Version manifest entirely.
 A Version that listed it with zero objects would assert your domain is empty, and restoring
 that assertion would delete it. Absent means *unknown*, not *none*.
 </Warning>
+
+## An administrator can disable your adapter
+
+Since Blueprints 1.1, an administrator can switch any adapter off from the **Adapters**
+section, official or community, and on again. You do not implement anything for this, and
+your adapter cannot prevent it.
+
+While it is disabled, it behaves exactly as if its dependency were missing, through the same
+path: `IsAvailable` answers `false` with the reason "disabled on this server by an
+administrator", `Describe(id).presence` is `"disabled"`, captures leave your domain out of the
+manifest, and restore, migration and deployment plans refuse your objects with that reason.
+Versions already captured are untouched.
