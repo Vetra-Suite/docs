@@ -6,8 +6,9 @@ description: "The questions asked before buying and during the first week, answe
 <AccordionGroup>
 
 <Accordion title="What does Blueprints actually manage?" icon="list-checks">
-The object types it has an adapter for. In version 1.0 those are **props**, **NPCs**,
-**DarkRP job spawns**, and the props **MalboroDEV PermaProps** has saved.
+The object types it has an adapter for. In version 1.1 those are **props**, **NPCs**,
+**DarkRP job spawns**, and the props **MalboroDEV PermaProps** has saved. An administrator can
+switch any adapter off.
 
 Object types with no adapter are outside its authority: it does not capture, modify or
 restore them. It does not modify other addons' code or configuration.
@@ -40,7 +41,7 @@ unmanaged and counted rather than half-managed. Full detail:
 
 <Accordion title="Does DarkRP require SQLite?" icon="database">
 The job-spawn adapter does. MySQL-backed DarkRP job-spawn storage is not supported in
-version 1.0, and on those servers that adapter reports itself unavailable rather than
+version 1.1, and on those servers that adapter reports itself unavailable rather than
 capturing an incomplete world.
 
 The limit is scoped to that one adapter. Props, NPCs and every other part of Blueprints work
@@ -89,6 +90,21 @@ mistake cannot go unnoticed. See [Updating](/blueprints/updating).
 <Accordion title="Do my players need to install anything?" icon="users">
 No. This is a server-side install. Garry's Mod delivers the interface and its assets to
 connecting clients automatically, and the interface itself is admin-only.
+</Accordion>
+
+<Accordion title="Which games can open the interface?" icon="monitor">
+The interface is drawn by the Chromium browser built into Garry's Mod: Windows (any branch),
+macOS, and Linux on the x86-64 branch. Linux's default branch has the older Awesomium browser,
+which cannot draw it; Blueprints says so in chat and opens nothing.
+
+Only administrators who open Blueprints need it. Your server and your players are not
+affected. See [Compatibility](/blueprints/compatibility), including what has been tested.
+</Accordion>
+
+<Accordion title="What changed in 1.1?" icon="sparkles">
+A new fullscreen interface replaces the 1.0 window, administrators can disable adapters, and a
+restore plan can exclude objects. Your data, your licence and every server operation are
+unchanged, and there is nothing to migrate. See [What's new in 1.1](/blueprints/whats-new).
 </Accordion>
 
 <Accordion title="Can I undo a restore?" icon="undo-2">

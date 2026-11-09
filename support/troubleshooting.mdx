@@ -49,10 +49,71 @@ command, which does the same thing:
 vetra_blueprints
 ```
 
-## The window opens but every section is empty
+## Blueprints does not open
 
-Read the notice at the top of **Overview**. The shell opens without a licence check on
-purpose, so an admin on a denied server can reach the screen that explains the denial.
+When the interface cannot start, Blueprints says why in **one chat line**, visible only to
+you, prints the detail in your console, and opens nothing. Your server and its players are
+not affected. There are three kinds:
+
+<AccordionGroup>
+  <Accordion title="Cannot open on this client" icon="monitor-x">
+    > Vetra Blueprints cannot open on this client: ...
+
+    Your game's browser cannot draw the interface. On **Linux**, the default and dev branches
+    embed the old Awesomium browser: switch your own game to the **x86-64** branch (Steam,
+    right-click Garry's Mod, **Properties**, **Betas**, **x86-64**). Anywhere else, update the
+    game. See [Compatibility](/blueprints/compatibility).
+
+    This cannot change during a game session, so opening again repeats the message.
+  </Accordion>
+
+  <Accordion title="Cannot open: the interface files" icon="file-x">
+    > Vetra Blueprints cannot open: ... Reconnect to the server.
+
+    A part of the interface did not arrive, or the parts come from two different builds.
+    Reconnect. If it happens again, the server's `vetra-blueprints` folder is incomplete or
+    mixes two versions: delete it, copy it in again from your download, and restart. The
+    server console names a missing part when the map starts.
+  </Accordion>
+
+  <Accordion title="Could not start its interface" icon="circle-x">
+    > Vetra Blueprints could not start its interface: ... Nothing on the server was changed.
+
+    The interface did not start for another reason. Opening it again tries again. If it keeps
+    happening, run this in your **client** console and send the output with your support
+    request:
+
+    ```text
+    vetra_blueprints_status
+    ```
+
+    On Linux off the x86-64 branch, this message also names that branch, because the old
+    browser there may fail before it can say what it is.
+  </Accordion>
+</AccordionGroup>
+
+### Diagnostics for support
+
+`vetra_blueprints_status`, in the client console, prints what the interface holds: the
+version, your game's branch, whether a session is open, your display settings, the licence
+state it was told, the interface build, and whether each of the six fonts was found.
+
+If support asks for a diagnostics file, open Blueprints with:
+
+```text
+vetra_blueprints diag
+```
+
+wait a few seconds, then close it. The file is written on **your** computer, in
+`garrysmod/data/vetra/webui/`, named `diag_<date>_<time>.txt`. It holds facts about the
+browser engine, fonts, layout and the interface's connection, and nothing about your server's
+contents.
+
+## It opens but every section is empty
+
+Read the notice at the top of the section, and the licence state in the status bar. The
+interface opens without a licence check on purpose, so an admin on a denied server can reach
+the screen that explains the denial.
 
 Then run, in the **server** console:
 
@@ -110,15 +171,24 @@ and match the state against [Licensing and servers](/support/licensing).
 ## Adapters
 
 <AccordionGroup>
+  <Accordion title="An adapter says Not installed or Disabled" icon="plug">
+    **Not installed** means the addon it integrates with is not on this server, such as DarkRP
+    on a Sandbox server. Expected; nothing needs doing. These are hidden from the list by
+    default.
+
+    **Disabled** means an administrator switched it off in the **Adapters** section. Its
+    inspector says who and when, and **Enable this adapter** switches it back on. See
+    [Adapter states](/blueprints/supported-objects#adapter-states).
+  </Accordion>
+
   <Accordion title="An adapter says Unavailable" icon="plug-zap">
-    Open the **Adapters** screen, or run `vetra_blueprints_adapter show <id>` in the server
+    Open the **Adapters** section, or run `vetra_blueprints_adapter show <id>` in the server
     console. Every unavailable adapter carries a sentence written by that adapter explaining
     why. The common ones:
 
     | Sentence | Meaning |
     | --- | --- |
-    | DarkRP is not running on this server | Expected on a non-DarkRP server |
-    | DarkRP is configured to use MySQL | Not supported in 1.0. See [DarkRP](/blueprints/darkrp) |
+    | DarkRP is configured to use MySQL | Not supported in 1.1. See [DarkRP](/blueprints/darkrp) |
     | DarkRP's position tables are not readable yet | Boot timing. Check again after the map has loaded |
     | The PermaProps install does not match | You are running a different addon of that name. See [PermaProps](/blueprints/permaprops) |
 
@@ -170,9 +240,10 @@ and match the state against [Licensing and servers](/support/licensing).
   <Accordion title="Restore refuses to change a model" icon="box">
     Changing a model in place rebuilds the physics mesh, loses the motion state and
     invalidates every constraint the entity is part of. The honest operation is a replace
-    (remove plus rebuild), which version 1.0 does not implement.
+    (remove plus rebuild), which Blueprints does not implement.
 
-    Exclude that object to leave it as it is, or remove and rebuild it yourself.
+    In the plan, pick that object and press **Exclude** to leave it as it is, or remove and
+    rebuild it yourself.
   </Accordion>
 
   <Accordion title="A migrated group landed in the wrong place" icon="move">

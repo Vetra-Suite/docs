@@ -20,13 +20,21 @@ garrysmod/data/vetra/blueprints/
 ├── packages/
 │   ├── exports/          packages you exported
 │   └── imports/          drop packages here to import them
-└── reports/
+├── reports/
+└── adapters.json         which adapters an administrator disabled, if any
 ```
 
 Blueprints does not send any of it anywhere on its own.
 
 This directory is **not** inside the addon folders, so updating or uninstalling Blueprints
 does not touch it. See [Updating](/blueprints/updating).
+
+### On an administrator's computer
+
+The interface keeps two display preferences (scale and density) in client convars on each
+administrator's own game. A diagnostics file, written only when you open Blueprints with
+`vetra_blueprints diag`, goes to that computer's `garrysmod/data/vetra/webui/`. Nothing in
+either leaves the computer unless you send it.
 
 ## The one exception: Remote Deploy
 
