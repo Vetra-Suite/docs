@@ -32,6 +32,27 @@ garrysmod/data/vetra/blueprints/
 Leave that alone and everything is where you left it, **including your activation**. The
 server does not re-activate and does not consume another slot.
 
+## From 1.0 to 1.1
+
+The same four steps. There is **nothing to migrate**: 1.1 reads your data exactly as 1.0 wrote
+it, and your licence and activation are unchanged.
+
+What you will notice is the interface: `!vblueprints` now opens a fullscreen workspace instead
+of the 1.0 window. Each administrator who opens it needs the Chromium browser Garry's Mod
+embeds, which Windows (any branch) and macOS have and Linux has on the x86-64 branch. See
+[Compatibility](/blueprints/compatibility) and [What's new in 1.1](/blueprints/whats-new).
+
+Delete the old folders rather than copying the new ones over them, so no 1.0 file is left
+behind.
+
+## Going back to 1.0
+
+The same steps in reverse: delete the 1.1 folders, copy the 1.0 ones in, restart. Everything
+1.1 saved is readable by 1.0.
+
+One 1.1 setting has no 1.0 equivalent: an adapter you **disabled** in 1.1 is enabled again
+under 1.0, and disabled again if you return to 1.1.
+
 ## Never run two copies at once
 
 <Warning>
@@ -44,8 +65,8 @@ declares:
 
 ```text
 [Vetra] ERROR boot: 2 copies of Vetra Framework are installed, so none of them was started.
-[Vetra]   addons/vetra-framework                1.0.0 (API 1)
-[Vetra]   addons/vetra-framework-old            0.9.0 (API 1)
+[Vetra]   addons/vetra-framework                1.1.0 (API 1)
+[Vetra]   addons/vetra-framework-old            1.0.0 (API 1)
 [Vetra] Keep the one folder you mean to run, normally the newest, delete the others, and restart the server.
 [Vetra] Vetra Blueprints and every other Vetra product stay stopped until then. Your data in garrysmod/data/vetra/ is untouched.
 ```
@@ -67,8 +88,9 @@ vetra_license_status
 
 Should still say **ONLINE**, with no reactivation and no new slot consumed.
 
-Open Blueprints and check the **Adapters** screen: every adapter you expect should be listed
-and available.
+Open Blueprints and check the **Adapters** section: every adapter you expect should be listed
+and available. Adapters for addons you do not run are listed as **Not installed** and hidden by
+default; that is expected.
 
 ## Adapter compatibility across an update
 

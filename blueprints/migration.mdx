@@ -19,16 +19,30 @@ longer exists anywhere.
 
 ## The workflow
 
+A migration belongs to the map it is **created on**: that is the map it builds onto. Create it
+on the target map, with the Version you want to copy from as its source. On any other map, a
+migration can only be deleted.
+
 <Steps>
-  <Step title="Pick a source Version and a group">
-    Any Version in the library, including one imported from another server. Migration is
-    one of the things an imported Version *is* allowed to be used for.
+  <Step title="Create the migration, from a source Version">
+    In **Versions**, select the source Version and press **Migrate**, then name the migration
+    and press **Create**. Any Version in the library will do, including one imported from
+    another server: migration is one of the things an imported Version *is* allowed to be used
+    for. The new migration is listed in **Migration**.
+  </Step>
+
+  <Step title="Add a unit">
+    Open the migration's units (`Enter`) and press **Add unit**. A unit is one group from the
+    source Version.
   </Step>
 
   <Step title="Place it">
-    The Migration Assistant draws a **ghost** of every object at its target position, in
-    the world, before anything is created. Move it, rotate it, raise it. What you see is
-    computed from the same maths the materialization will use.
+    Select the unit and press **Place**, then **Start**. Blueprints steps aside and the
+    Migration Assistant draws a **ghost** of every object at its target position, in the
+    world, before anything is created. Left click sets the group down where you look, `R` and
+    `F` rotate it about its anchor, `[` and `]` lower and raise it, holding `Alt` makes each
+    step fine, `Enter` confirms and `Esc` cancels. What you see is computed from the same maths
+    the materialization will use. The interface then comes back as you left it.
 
     Each ghost is coloured by its status: **ready**, **skipped**, **unsupported** or
     **invalid**. That colour vocabulary is the client's own, and no adapter can change it.
@@ -52,7 +66,8 @@ longer exists anywhere.
   </Step>
 
   <Step title="Materialize">
-    Confirm, and the objects are created.
+    Press **Materialize** and confirm. The confirmation states how many objects will be
+    created. The objects are then created.
 
     Every member ends as `created` or `failed`, and a failure is reported with the reason
     the adapter gave. A part-way failure leaves nothing behind, or names exactly what it

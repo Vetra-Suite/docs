@@ -51,7 +51,7 @@ blocked plan can never grow a "probably fine" reason:
 | `invalid` | The record or its transform is unusable |
 | `type_changed` | The object's type changed, which would require a replace |
 | `map_mismatch` | The Version belongs to another map |
-| `session_churn` | The target was captured in another server session |
+| `session_churn` | The target was captured in another server session. You can acknowledge it and continue: see [Session churn](#session-churn) |
 
 Whole domains are blocked separately, above the per-object list, when an adapter that was
 authoritative in that Version cannot be used here. Since the reason matters, it is
@@ -67,6 +67,50 @@ them.
 The plan is fingerprinted. If the world moves under you, or an adapter is updated between
 the plan you read and your confirmation, the plan is stale and Blueprints re-plans rather
 than applying something you did not see.
+
+## In the interface
+
+<Steps>
+  <Step title="Plan">
+    Open **Restore** and press **Plan a restore**, choose the Version and press **Plan
+    restore**. Or select the Version in **Versions** and press **Restore**.
+  </Step>
+  <Step title="Read it">
+    The plan lists every operation per object, with filters by operation (create, move,
+    settings, remove, group operations) and a search. Blocked operations, warnings and what is
+    deliberately left alone are listed beside it.
+  </Step>
+  <Step title="Exclude what you want kept">
+    Pick objects (`Space`, or **Pick all shown**) and press **Exclude**. An excluded object is
+    left exactly as it is now, and the plan is computed again without it. **Include** puts one
+    back, **Include all again** puts them all back. Excluding a blocked object is how you let
+    the rest of a plan run.
+  </Step>
+  <Step title="Restore">
+    Press **Restore**, or **Restore and remove** with the count when the plan removes anything.
+    The confirmation states the consequence and the counts. What you see afterwards is the
+    server's own result.
+  </Step>
+</Steps>
+
+Excluded objects are never counted as verified, so verifying that restore reports each one the
+Version holds as unverified. The restore history records how many were excluded.
+
+### Session churn
+
+When the target Version was captured in an earlier server session, its session-scoped objects
+(props and NPCs) cannot be matched to the ones in the world now. The plan says so, with both
+session ids and the counts. Tick **Acknowledge the session change** to continue: the restore
+then removes those objects and rebuilds them with new identities. Nothing is matched by
+position or model.
+
+### History
+
+Restore keeps a history on this map. For a finished restore you can **Verify against the
+world**, **Roll back** at once to its recovery Version, or **Review a rollback first**, which
+plans a restore to the recovery Version so you can read it. An interrupted restore blocks new
+restores on the map until you resolve it, by rolling back to its recovery Version or by
+abandoning it.
 
 ## The recovery Version
 
@@ -121,7 +165,8 @@ The wording of the result is load-bearing and is not softened:
   <Accordion title="Session-scoped objects across a restart" icon="rotate-ccw">
     Props and NPCs carry session identity: correct, because nothing durable holds an id for
     a runtime-spawned entity. After a restart, objects captured in the previous session are
-    reported `session_churn` rather than matched by luck.
+    reported `session_churn` rather than matched by luck. You can acknowledge it, and the
+    restore then rebuilds them with new identities. See [Session churn](#session-churn).
 
     Domains backed by a database, such as DarkRP job spawns and saved PermaProps, are
     persistent and survive a restart cleanly.

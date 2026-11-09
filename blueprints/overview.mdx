@@ -57,7 +57,7 @@ It does not capture, modify or restore anything outside that set, and it does no
 other addons' code or configuration files.
 </Warning>
 
-In version 1.0 the shipped adapters cover:
+The adapters that ship with Blueprints 1.1 cover:
 
 | Domain | Adapter | Notes |
 | --- | --- | --- |
@@ -71,8 +71,10 @@ The DarkRP adapter updates DarkRP job-spawn records; the PermaProps adapter upda
 PermaProps rows. That is what managing those domains means, and it is not the same thing
 as editing somebody's addon.
 
-See [Supported objects and integrations](/blueprints/supported-objects) for the full
-capability matrix, and the [Adapter SDK](/sdk/overview) if you want Blueprints to manage
+An administrator can switch any adapter off, and an adapter whose addon is not installed is
+simply listed as **Not installed**. See
+[Supported objects and integrations](/blueprints/supported-objects) for the full capability
+matrix, and the [Adapter SDK](/sdk/overview) if you want Blueprints to manage
 something it does not yet know about.
 
 ## Vocabulary
@@ -111,8 +113,8 @@ something it does not yet know about.
   not a patch on the one before it.
 - **Not a live sync.** Nothing happens on a schedule. Every capture, restore and
   deployment is something a person asked for.
-- **Not player-facing.** The interface is admin-gated and nothing about it is installed by
-  hand on a client.
+- **Not player-facing.** The [interface](/blueprints/interface) is admin-gated and nothing
+  about it is installed by hand on a client.
 
 ## Next
 

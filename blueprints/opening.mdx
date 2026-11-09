@@ -9,7 +9,8 @@ description: "Type !vblueprints in chat. The console command still works, and th
 !vblueprints
 ```
 
-An administrator types it in chat. Blueprints opens on their screen.
+An administrator types it in chat. Blueprints opens fullscreen on their screen, on
+**Overview**.
 
 That is the whole command. It takes no arguments, and it is matched **exactly** after
 trimming whitespace: `hello !vblueprints` is a sentence somebody typed, and Blueprints
@@ -36,23 +37,28 @@ vetra_blueprints groups
 vetra_blueprints remote
 ```
 
-| Section | Argument |
-| --- | --- |
-| Overview | `overview` |
-| Versions | `versions` |
-| Objects | `objects` |
-| Groups | `groups` |
-| Migration | `migration` |
-| Restore | `restore` |
-| Deploy | `deploy` |
-| Remote Deploy | `remote` |
-| Adapters | `adapters` |
+| Section | Argument | Key, once open |
+| --- | --- | --- |
+| Overview | `overview` | `1` |
+| Versions | `versions` | `2` |
+| Objects | `objects` | `3` |
+| Groups | `groups` | `4` |
+| Migration | `migration` | `5` |
+| Restore | `restore` | `6` |
+| Deploy | `deploy` | `7` |
+| Remote Deploy | `remote` | `8` |
+| Adapters | `adapters` | `9` |
 
-To close it:
+Running it again while Blueprints is open brings the open interface forward, and a section
+name moves it to that section. There is only ever one.
+
+To close it, press `Esc` at the top of a section, press **Close** in the title bar, or run:
 
 ```text
 vetra_blueprints_close
 ```
+
+The interface itself is described in [The interface](/blueprints/interface).
 
 ## Who may open it
 
@@ -61,8 +67,8 @@ Blueprints is gated on Garry's Mod's own `IsAdmin` check, which is what most adm
 admin, Blueprints grants access.
 
 The gate is on the **server**, on every request the interface makes, not on the act of
-opening a window. An unauthorised player who somehow reaches the shell finds it empty:
-nothing inside it is drawn until the server answers, and the server refuses.
+opening it. An unauthorised player who somehow reaches the interface finds it empty: nothing
+inside it is drawn until the server answers, and the server refuses.
 
 <Warning>
 Licensing and recovery commands are narrower still. `vetra_license_status`,
@@ -71,9 +77,18 @@ Licensing and recovery commands are narrower still. `vetra_license_status`,
 allowance.
 </Warning>
 
-## If the window opens but shows nothing
+## If it opens but shows nothing
 
-The shell opening is deliberately not gated on your licence: an admin on a denied server
-has to be able to reach the screen that explains the denial. If the window is up and every
-section is empty or refusing, read the notice at the top of Overview, then
-[Licensing and servers](/support/licensing).
+Opening the interface is deliberately not gated on your licence: an admin on a denied server
+has to be able to reach the screen that explains the denial. If it is open and every section
+is empty or refusing, read the notice at the top of the section and the licence state in the
+status bar, then [Licensing and servers](/support/licensing).
+
+## If it does not open
+
+Blueprints needs the Chromium browser Garry's Mod embeds. Where the game's browser cannot draw
+it, or the interface files did not arrive, Blueprints tells you in one chat line what happened
+and what to do, and opens nothing. Your server is not affected.
+
+See [Compatibility](/blueprints/compatibility) for which clients can run it, and
+[Troubleshooting](/support/troubleshooting#blueprints-does-not-open) for each message.

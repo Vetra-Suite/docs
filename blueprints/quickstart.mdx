@@ -9,37 +9,44 @@ something you care about.
 
 <Steps>
   <Step title="Open Blueprints">
-    Type `!vblueprints` in chat as an admin.
+    Type `!vblueprints` in chat as an admin. Blueprints opens fullscreen.
 
     You land on **Overview**: what Blueprints holds on this server right now, and the state
-    of its licence. Opening this screen never walks the world, so it costs nothing.
+    of its licence. Opening this screen never walks the world, so it costs nothing. The keys
+    `1` to `9` switch sections, and `Esc` closes Blueprints.
+
+    If it does not open, see [Compatibility](/blueprints/compatibility).
   </Step>
 
   <Step title="Capture your first Version">
-    Press **Create Version**.
+    Press **Create Version**, on Overview or at the top of **Versions**.
 
     Blueprints asks every available adapter for its domain, records what it finds, and
     writes the Version to your server. When it finishes, Overview updates and the new
-    Version appears under **Versions**.
+    Version appears under **Versions**. A Version is identified by its id, its map and the
+    time it was captured.
 
     A Version is immutable. Nothing you do later edits it.
   </Step>
 
   <Step title="Change something">
-    Go and build. Move a prop, spawn two more, delete one, recolour another. Anything in a
-    managed domain will do.
+    Close Blueprints and go and build. Move a prop, spawn two more, delete one, recolour
+    another. Anything in a managed domain will do.
   </Step>
 
   <Step title="Capture a second Version">
-    Back to **Overview**, **Create Version** again.
+    Open Blueprints again, and **Create Version** again.
 
     You now have two points in the history of the same map.
   </Step>
 
   <Step title="Compare them">
-    Open **Versions**, select both, and compare.
+    Open **Versions** and select the newer Version. In its inspector, press
+    **Changes since previous** (or `P`). To compare any other pair, select one, press
+    **Set as compare base** (`B`), select the other and press **Compare** (`C`).
 
-    You get an object-by-object report: **added**, **changed**, **removed**. The prop you
+    You get an object-by-object report: **added**, **changed** (shown as modified),
+    **removed**, with exact totals. Select a change to see each field before and after. The prop you
     moved is reported as changed with its old and new transform, not as one deletion plus
     one creation, because object identity is stable across a capture.
 
@@ -48,15 +55,18 @@ something you care about.
   </Step>
 
   <Step title="Put it back">
-    Open **Restore**, pick the first Version, and read the plan.
+    Open **Restore**, press **Plan a restore**, choose the first Version and press
+    **Plan restore**. Read the plan.
 
     Nothing is written yet. The plan tells you exactly what will be created, moved,
-    conformed and destroyed, and names anything it cannot act on and why.
+    conformed and destroyed, and names anything it cannot act on and why. You can exclude
+    any object you want left exactly as it is.
 
     Before the first destructive change Blueprints writes a **recovery Version** and reads
     it back. If the restore then fails part way, it rolls back and verifies the rollback.
 
-    Confirm, and watch it run.
+    Press **Restore** (it reads **Restore and remove** with the count when the plan removes
+    anything), confirm, and watch it run. The result shown is the server's own.
   </Step>
 
   <Step title="Confirm">

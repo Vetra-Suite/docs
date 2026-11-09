@@ -12,7 +12,8 @@ a build crosses a server boundary without the Vetra service being involved at al
 
 ## Export
 
-From **Versions**, select a Version and press **Export**.
+From **Versions**, select a Version and press **Export** in its inspector. When it is done,
+the inspector shows the file name, its size and where it is.
 
 The file is written to your own server:
 
@@ -20,8 +21,8 @@ The file is written to your own server:
 garrysmod/data/vetra/blueprints/packages/exports/
 ```
 
-Fetch it however you normally move files: FTP, your control panel, a file manager, a USB
-stick. It is an ordinary file, it is yours, and you can keep or archive it independently of
+The interface cannot download it for you. Fetch it however you normally move files: FTP,
+your control panel, a file manager, a USB stick. It is an ordinary file, it is yours, and you can keep or archive it independently of
 Blueprints and independently of Vetra.
 
 A package is canonicalised and carries an integrity digest, so a truncated or altered file
@@ -36,11 +37,17 @@ garrysmod/data/vetra/blueprints/packages/imports/
 ```
 
 Then open **Versions** and press **Import**. Blueprints lists what it finds in that folder,
-validates each candidate, and tells you what it thinks of it before you commit.
+validates each candidate, and tells you what it thinks of it before you commit: its origin, the
+Version inside, whether each adapter it recorded can be read here, its integrity, and what you
+will be able to do with it. Press **Refresh** after copying a new file in. The file stays in
+the folder after an import.
+
+Only file names made of lowercase letters, digits, `-` and `_`, ending in `.vetra.json`, are
+listed.
 
 <Note>
-Import lives inside Versions rather than as its own nav entry, because a package has no
-meaning except as a Version you are about to have.
+Import lives inside Versions rather than as its own section, because a package has no meaning
+except as a Version you are about to have.
 </Note>
 
 ### Limits

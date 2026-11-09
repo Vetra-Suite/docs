@@ -59,12 +59,13 @@ being deployed.
   </Step>
 
   <Step title="Create a deployment">
-    On the **production** server, open **Deploy** and press **New deployment**. Name it,
-    pick the source installation, the map and the scope.
+    On the **production** server, open **Deploy** and press **New deployment**. Choose the
+    imported Version to deploy and what it may touch (the scope), name it, and press **Create
+    deployment**. The source installation and the map come from that Version.
   </Step>
 
   <Step title="Plan">
-    Blueprints computes one comparison:
+    Select the deployment and press **Plan deployment**. Blueprints computes one comparison:
 
     ```text
     DESIRED   the source Version, remapped, restricted to the scope
@@ -87,6 +88,7 @@ being deployed.
   </Step>
 
   <Step title="Deploy">
+    Press **Deploy** and confirm; the confirmation states what will be removed, if anything.
     The run is journalled. Before anything destructive, a scoped recovery capture is taken,
     exactly as a restore does. Afterwards the result is verified by capturing again and
     comparing.

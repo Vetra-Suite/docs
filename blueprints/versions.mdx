@@ -8,7 +8,8 @@ product's other work starts from.
 
 ## Capturing
 
-Press **Create Version**, on Overview or on Versions.
+Press **Create Version**, on Overview or at the top of Versions. There is no confirmation:
+capturing is a read.
 
 Blueprints asks every available adapter for its whole domain, normalises what comes back,
 and writes one immutable document to your server. A capture is all-or-nothing per adapter:
@@ -22,6 +23,9 @@ A Version records:
 - **which adapters were authoritative**, and the data format each was writing;
 - when it was taken, and by whom.
 
+A Version has no name of its own. It is identified by its **id**, its **map** and the moment
+it was **captured**.
+
 <Note>
 Capturing does not touch the world. It is a read.
 </Note>
@@ -29,18 +33,24 @@ Capturing does not touch the world. It is a read.
 ## The list
 
 Each row is one Version: its id, when it was captured, the map, the object count, and its
-origin.
+origin. Above the list: **Create Version**, **Import**, a search over id and map, and filters
+for the map and the origin (this server, another Vetra server, unverified, origin not
+recorded).
 
-Selecting a Version gives you the actions along the top:
+Selecting a Version opens it in the **inspector** beside the list: what it contains per
+adapter, whether each adapter it recorded can still be read here, its origin, and its
+actions:
 
-| Action | What it does |
-| --- | --- |
-| **Compare** | Diff this Version against another |
-| **Restore** | Return the managed world toward it. See [Restore](/blueprints/restore) |
-| **Migrate** | Use it as a migration source. See [Migration](/blueprints/migration) |
-| **Export** | Write it out as a portable package file. See [Packages](/blueprints/packages) |
-| **Clone** | A second local copy of the same Version, under a new id |
-| **Import** | Bring a package file in from the import folder |
+| Action | Key | What it does |
+| --- | --- | --- |
+| **Changes since previous** | `P` | Compare it with the previous Version this server captured on the same map |
+| **Set as compare base** | `B` | Keep it as one side of the next comparison |
+| **Restore** | | Plan a return of the managed world to it. See [Restore](/blueprints/restore) |
+| **Migrate** | | Use it as a migration source. See [Migration](/blueprints/migration) |
+| **Export** | | Write it out as a portable package file. See [Export and import](/blueprints/packages) |
+| **Clone** | | A second local copy of the same Version, under a new id |
+
+**Import**, at the top of the list, brings a package file in from the server's import folder.
 
 **Clone** exists as the honest answer to "I want another copy of this". It copies the
 document under a new local id and changes nothing about where it came from: a clone of an
@@ -48,8 +58,22 @@ imported Version is still imported.
 
 ## Comparing two Versions
 
-Compare lives inside Versions rather than as its own nav entry, because comparing is
+Compare lives inside Versions rather than as its own section, because comparing is
 something you do *to* two Versions and has no meaning without them.
+
+Pick the two sides in either of these ways, then press **Compare** (`C`):
+
+- select one Version, press **Set as compare base** (`B`), then select the other;
+- or select two Versions (`Space` adds the current row to the selection).
+
+The inspector shows both ends, how far apart they were captured and the net change in
+objects and groups before you run it. **Changes since previous** (`P`) does all of this in
+one step for the Version you are on.
+
+The comparison runs on the server and opens as its own view: exact totals of added, removed,
+modified and unchanged objects, a searchable list of changes, and, for the change you select,
+each field that changed with its value before and after. **Swap direction** reverses the two
+sides. `Esc` goes back to the list.
 
 The result is per object, in three classes:
 

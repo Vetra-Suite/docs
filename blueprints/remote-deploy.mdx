@@ -39,17 +39,22 @@ server's own world and applied by it.
 
 ## What you need
 
-- Both servers activated on the same licence.
+- Both servers activated for Blueprints by the **same GmodStore account**. The servers you can
+  send to are the other servers your own purchase has activated; nobody else's server is
+  ever offered, and a server that is not entitled to Blueprints is not either.
 - Outbound HTTPS from both servers, while you are using it. A cached licence is enough to
   keep local Blueprints working offline, but Remote Deploy is a live operation and needs
   the connection at the time.
 - The same map on both servers. Remote deployment is same-map.
+- Blueprints loaded and running on the target server: it collects work when it next checks
+  in, so it has to be up.
 
 ## The flow
 
 <Steps>
   <Step title="Prepare, on the development server">
-    Pick a Version and a target. Blueprints exports the Version as a package and uploads it
+    In **Remote Deploy**, press **New remote deployment**, choose the Version, then the target
+    server, and confirm **Prepare**. Blueprints exports the Version as a package and uploads it
     to Vetra.
 
     Transfer progress is shown in real bytes. Where Blueprints has no real number, it shows
@@ -63,8 +68,13 @@ server's own world and applied by it.
   </Step>
 
   <Step title="Approve">
-    The plan comes back to you: what will be created, moved, conformed and destroyed on the
-    target server, plus anything needing an acknowledgement.
+    The plan comes back to you, on the **Remote Deploy** screen of the server that prepared
+    it: what will be created, moved, conformed and destroyed on the target server, plus
+    anything needing an acknowledgement. Each acknowledgement is a box you tick yourself;
+    nothing is ticked for you. Then press **Approve and deploy**.
+
+    The list is read again on its own while a deployment is moving, so you can watch it
+    progress; the status bar says how often.
 
     The wording here names **the target server** in every sentence, deliberately. "12
     objects will be overwritten" reads very differently when the objects are on a machine

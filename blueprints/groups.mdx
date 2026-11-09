@@ -13,14 +13,18 @@ moves with it, keeping its internal geometry exactly.
 
 <Steps>
   <Step title="Open Objects">
-    The **Objects** section lists everything currently managed on this map, filterable by
-    adapter and type.
+    The **Objects** section lists everything currently managed on this map, as the server read
+    it, searchable and filterable by adapter, type and identity scope.
   </Step>
   <Step title="Select the members">
-    Pick the props, NPCs and other managed objects that make up the thing you built.
+    Pick the props, NPCs and other managed objects that make up the thing you built. `Ctrl` +
+    click (`Cmd` + click on macOS) or `Space` adds or removes one; `Shift` + click or `Shift` +
+    an arrow selects a range.
   </Step>
-  <Step title="Create group">
-    Name it. Blueprints computes a default anchor and stores each member's offset from it.
+  <Step title="Create the group">
+    In the inspector, under **New group**, name it and confirm. The confirmation states how many
+    objects it will hold. The server reads every object again and leaves out any that are gone.
+    Blueprints computes a default anchor and stores each member's offset from it.
   </Step>
 </Steps>
 
@@ -41,7 +45,11 @@ the admin's client happens to have installed. That is deliberate: placement is c
 from the numbers your server recorded.
 </Note>
 
-### Move Anchor
+Both moves below are placed **in the world**: Blueprints steps aside, you aim where the anchor
+should go (left click to place, mouse wheel to rotate, right click or `Esc` to cancel), and the
+interface comes back exactly as you left it. See [The interface](/blueprints/interface#placing-things-in-the-world).
+
+### Move anchor
 
 Repositions the anchor and recomputes every member offset so that **nothing in the world
 moves**. It is a document operation: it changes where you will hold the group next time,
@@ -50,7 +58,7 @@ not where the group is.
 Use it when the default anchor is in an awkward place. Put it at the doorway of the
 building, at the corner of the plot, at the base of the tower.
 
-### Move Group
+### Move group
 
 Plans new world transforms for every member from the offsets they already have, and applies
 them.
@@ -75,14 +83,17 @@ A member that cannot be resolved is reported with one of exactly three reasons:
 The list is closed on purpose. An open one would eventually grow a "probably the same
 object" reason, and that is exactly the heuristic the identity contract exists to forbid.
 
-## Recapturing a member
+## The other group actions
 
-When you have deliberately moved one member of a group and want that to be its new resting
-position, **recapture** it. That re-reads its current world transform into the group's
-stored offset.
+Select a group in **Groups** and its inspector offers:
 
-It is explicit and user-invoked so that drift is recorded on purpose rather than baked in
-silently by the next move.
+| Action | What it does |
+| --- | --- |
+| **Members** (`Enter`) | List its members, with the ones that do not resolve marked |
+| **Rename** | Change its name. Nothing in the world changes |
+| **Move group**, **Move anchor** | As above |
+| **Prune missing** | Remove the members that no longer resolve from the group's document. Nothing in the world is deleted |
+| **Delete group** | Delete the group's document. Its members stay in the world |
 
 ## What groups are for
 

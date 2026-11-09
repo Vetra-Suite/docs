@@ -14,8 +14,14 @@ interface itself is admin-only.
 </ResponseField>
 
 <ResponseField name="Vetra Framework" type="included in the download" required>
-  The shared runtime, interface and licensing. It ships inside the same archive. Do not
-  install it separately and do not take it from anywhere else.
+  The shared runtime, fonts and licensing. It ships inside the same archive. Do not install it
+  separately and do not take it from anywhere else.
+</ResponseField>
+
+<ResponseField name="Chromium, for each administrator who opens Blueprints" type="built into the game">
+  The interface is drawn by the browser Garry's Mod embeds. Windows (any branch) and macOS have
+  it. On Linux, the administrator's game needs the **x86-64** branch. Your server and your
+  players are not affected. See [Compatibility](/blueprints/compatibility).
 </ResponseField>
 
 <ResponseField name="Outbound HTTPS" type="from the server">
@@ -40,8 +46,8 @@ No Workshop content packs are required. Fonts and interface assets ship inside t
     You get three folders:
 
     ```text
-    vetra-framework/         REQUIRED. The runtime, the interface, licensing.
-    vetra-blueprints/        REQUIRED. The product.
+    vetra-framework/         REQUIRED. The runtime, fonts and licensing.
+    vetra-blueprints/        REQUIRED. The product and its interface.
     vetra-example-adapter/   OPTIONAL. A worked example for the Adapter SDK.
     ```
 
@@ -126,8 +132,13 @@ One purchase activates Blueprints on up to **three servers** at a time. See
 !vblueprints
 ```
 
-Typed in chat by an admin. Full detail, including the console alternative, in
-[Opening Blueprints](/blueprints/opening).
+Typed in chat by an admin. Blueprints opens fullscreen. Full detail, including the console
+alternative, in [Opening Blueprints](/blueprints/opening).
+
+<Note>
+Updating from 1.0? The steps are on [Updating](/blueprints/updating), and what changed is on
+[What's new in 1.1](/blueprints/whats-new).
+</Note>
 
 ## Next
 
