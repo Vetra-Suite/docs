@@ -49,8 +49,11 @@
             "pages": [
               "index",
               "blueprints/overview",
+              "blueprints/whats-new",
               "blueprints/installation",
+              "blueprints/compatibility",
               "blueprints/opening",
+              "blueprints/interface",
               "blueprints/quickstart"
             ]
           },
@@ -188,6 +191,8 @@
         "items": [
           { "label": "Overview", "href": "/blueprints/overview" },
           { "label": "Installation", "href": "/blueprints/installation" },
+          { "label": "Compatibility", "href": "/blueprints/compatibility" },
+          { "label": "What's new in 1.1", "href": "/blueprints/whats-new" },
           { "label": "Supported objects", "href": "/blueprints/supported-objects" }
         ]
       },

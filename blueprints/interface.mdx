@@ -1,0 +1,140 @@
+---
+title: "The interface"
+description: "One fullscreen workspace with nine sections, driven by mouse or keyboard, drawn by the browser built into Garry's Mod."
+---
+
+Since 1.1, Blueprints opens as one **fullscreen workspace** drawn by the game's built-in
+Chromium browser. It replaces the 1.0 window. The commands that open it, the sections and
+everything the server does are unchanged.
+
+It is admin-only, and it holds no authority of its own: every list it shows and every change
+it makes is a request the server checks, exactly as before.
+
+## Layout
+
+| Area | What it holds |
+| --- | --- |
+| **Title bar** | Where you are (a breadcrumb), the current map, the **Display** panel, and **Close** (`Esc`) |
+| **Navigation** | The nine sections, numbered `01` to `09` |
+| **Section** | A list on the left and, beside it, an **inspector** for whatever is selected. The inspector holds that item's details and its actions |
+| **Status bar** | Counts for the section, the keys that work here, the managed object count in the world, adapters needing attention, and the licence state |
+
+The nine sections, with the key that opens each one:
+
+| Key | Section | Console argument |
+| --- | --- | --- |
+| `1` | Overview | `overview` |
+| `2` | Versions | `versions` |
+| `3` | Objects | `objects` |
+| `4` | Groups | `groups` |
+| `5` | Migration | `migration` |
+| `6` | Restore | `restore` |
+| `7` | Deploy | `deploy` |
+| `8` | Remote Deploy | `remote` |
+| `9` | Adapters | `adapters` |
+
+A section keeps its selection, filters and scroll position while you visit another one, until
+you close Blueprints.
+
+## Keyboard
+
+The status bar always lists the keys that work on the current screen. The common ones:
+
+| Key | Does |
+| --- | --- |
+| `1` to `9` | Open a section (outside a text field or a dialog) |
+| `↑` `↓` | Move the selection |
+| `Shift` + `↑` `↓` | Extend the selection, where a list allows several |
+| `Space` | Add or remove the current row from the selection |
+| `Enter` | Open the selected item (a group's members, a migration's units, a plan) |
+| `/` | Jump to the search field |
+| `Esc` | Go back one level; at the top of a section, close Blueprints |
+
+**Versions** adds three: `B` sets the selected Version as the compare base, `C` compares, and
+`P` shows the changes since the previous Version on the same map.
+
+Character shortcuts follow the character your keyboard layout types, so `/` works on an AZERTY
+keyboard too.
+
+With the mouse, a click selects one row. In **Objects**, `Ctrl` + click (`Cmd` + click on
+macOS) adds or removes a row, and `Shift` + click selects a range.
+
+{/* OWNER: confirm Ctrl/Cmd/Shift-click in game on Windows and macOS (webui-m3-release.md section 8 lists them as still to confirm). */}
+
+## Search, filters and inspectors
+
+Lists that can grow long have a search field and filters above them, and a **Clear** button
+when any filter is set. In Versions and Objects the server does the searching and sorting, so a
+filter covers the whole library, not only the rows already loaded.
+
+| Section | Search and filters |
+| --- | --- |
+| Versions | Id or map; map (all, or this map); origin (this server, another Vetra server, unverified, origin not recorded) |
+| Objects | Label, id, type or adapter; identity scope; adapter; type; whether the object has a position |
+| Restore plan | Operation (create, move, settings, remove, group operations) and a search |
+| Groups, Migration, Deploy, Remote Deploy | A search over the list |
+
+**Objects is a capture, not a live view.** It lists what the server read from the world at a
+moment, says when, and reads again when you press **Refresh**. It loads up to 2,000 rows.
+
+## Confirmations
+
+Anything that changes the world, or deletes a document, goes through a confirmation. It states
+the consequence in one sentence, with the count, before you press the button. Capturing a
+Version is a read and has no confirmation.
+
+What the interface reports afterwards is **the server's answer**, never a guess:
+
+- nothing is shown as done until the server says it is done;
+- a second click while a request is pending sends nothing more;
+- a write the server did not answer in time is reported as **unknown**, not as failed, because
+  it may have run. It is never resent on its own: the interface reads the server's state again
+  and tells you what it found.
+
+`Esc` closes a dialog only when that is safe.
+
+## Placing things in the world
+
+**Move group**, **Move anchor** and placing a migration unit happen in the world, not on a
+screen. The interface steps aside, you place, and it comes back exactly as you left it.
+
+| Placing | Controls |
+| --- | --- |
+| A group's anchor (**Move group**, **Move anchor**) | Left click: place where you look. Mouse wheel: rotate. Right click or `Esc`: cancel |
+| A migration unit (ghost preview) | Left click: set the group down where you look. `R` / `F`: rotate about the anchor. `[` / `]`: lower or raise. Hold `Alt`: fine steps. `Enter`: confirm this placement. `Esc`: cancel |
+
+Cancelling a placement changes nothing, and `Esc` cancels the placement rather than opening
+the game menu.
+
+## Display preferences
+
+**Display**, in the title bar, sets two things for your own client:
+
+<ResponseField name="Scale" type="0.80 to 1.60, in steps of 0.05">
+  The size of everything in the interface. The default in game is **1.10**. On a screen too
+  small for the scale you chose, the interface applies the largest scale that still fits and
+  keeps your choice for a larger screen.
+</ResponseField>
+
+<ResponseField name="Density" type="Compact, Default or Relaxed">
+  Row height in lists: 20, 24 or 30 units. The default is **Relaxed**.
+</ResponseField>
+
+Both apply at once and are kept on your computer for the next game session. They are stored in
+the client convars `vetra_blueprints_scale` and `vetra_blueprints_density`, which you can also
+set from the console.
+
+## Limitations
+
+- **It needs Chromium.** Garry's Mod embeds it on Windows (every branch), macOS, and Linux on
+  the x86-64 branch. Linux's default branch embeds the older Awesomium browser, which cannot
+  draw the interface. See [Compatibility](/blueprints/compatibility).
+- **It cannot move files.** Exported packages stay in the server's export folder, and a
+  package to import must be copied into the server's import folder, over FTP or your host's
+  file manager. See [Export and import](/blueprints/packages).
+- **It is not live.** Screens show what the server answered when they asked. Most have a
+  **Refresh** or **Read again** action, and screens read again after their own writes.
+- **One at a time.** Opening Blueprints again while it is open brings the open one forward; a
+  section name moves it to that section.
+
+If it does not open at all, see [Troubleshooting](/support/troubleshooting#blueprints-does-not-open).

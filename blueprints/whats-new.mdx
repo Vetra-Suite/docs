@@ -1,0 +1,102 @@
+---
+title: "What's new in 1.1"
+description: "Blueprints 1.1 replaces the window with a fullscreen interface, adds a switch for each adapter, and changes nothing about your data or your licence."
+---
+
+Blueprints **1.1** changes how you work with the product, not what it does to your server. Your
+data, your licence, every server operation and every console command carry over unchanged.
+
+## A new, fullscreen interface
+
+`!vblueprints` and `vetra_blueprints` now open Blueprints as one **fullscreen workspace** with
+all nine sections: Overview, Versions, Objects, Groups, Migration, Restore, Deploy, Remote
+Deploy and Adapters. The 1.0 window is gone.
+
+- `vetra_blueprints <section>` still opens a named section, and `Esc` closes it.
+- The digits `1` to `9` switch sections, and every screen lists its keys in the status bar.
+- Placing a group or a migration still happens in the world, and the interface comes back
+  exactly as you left it.
+- A **Display** panel in the title bar sets the interface's scale and row density for your own
+  client. Both are remembered.
+
+The interface is drawn by the game's built-in **Chromium** browser: Windows (any branch), macOS,
+and Linux on the x86-64 branch. Linux's default branch still has the older Awesomium browser,
+which cannot draw it; there, Blueprints says so in chat, names the x86-64 branch and opens
+nothing. The server, its players and every console command are not affected.
+
+<CardGroup cols={2}>
+  <Card title="The interface" icon="layout-panel-left" href="/blueprints/interface">
+    Layout, keyboard, filters, confirmations and display preferences.
+  </Card>
+  <Card title="Compatibility" icon="monitor-check" href="/blueprints/compatibility">
+    Which clients are tested, expected, or unsupported.
+  </Card>
+</CardGroup>
+
+## Added
+
+<AccordionGroup>
+  <Accordion title="Disable an adapter" icon="toggle-left">
+    An administrator can switch any adapter off from the **Adapters** section, and on again. A
+    disabled adapter is left out of new Versions, and restores and deployments refuse its
+    objects with the reason, until it is enabled. Nothing already captured changes. The choice
+    is kept on the server. See [Supported objects](/blueprints/supported-objects#adapter-states).
+  </Accordion>
+
+  <Accordion title="Not installed is not a fault" icon="circle-dashed">
+    An adapter for an addon you do not run (DarkRP or PermaProps, for instance) is shown as
+    **Not installed** rather than as unavailable, and hidden by default.
+  </Accordion>
+
+  <Accordion title="Exclude objects from a restore, and acknowledge churn" icon="list-x">
+    In a restore plan you can now exclude objects, which are then left exactly as they are, and
+    acknowledge session churn so the restore can proceed. The server always supported both; the
+    1.0 window could not get past either. See [Restore](/blueprints/restore).
+  </Accordion>
+
+  <Accordion title="Commands for support" icon="terminal">
+    `vetra_blueprints_status` prints what the interface holds, for a support request.
+    `vetra_blueprints diag` opens Blueprints and also writes a diagnostics file. See
+    [Troubleshooting](/support/troubleshooting#blueprints-does-not-open).
+  </Accordion>
+</AccordionGroup>
+
+## Changed
+
+- **A lighter framework.** `vetra-framework` no longer ships the 1.0 window's components or the
+  icon images only they drew. The fonts stay: the interface and the in-world placement overlay
+  draw with them. The download still holds the same three folders as 1.0.
+
+## Fixed
+
+- A write that succeeded, but whose result was too large to send back (a very large group,
+  migration or restore library), was reported as refused. It is now reported as done, and the
+  list is read again.
+- A refused restore with a very large plan produced no answer at all. The refusal is now
+  bounded and names its reasons.
+- Recovering, claiming or abandoning an interrupted deployment while another operation held the
+  server could change the run's state before being refused. Nothing changes now unless the
+  operation can run.
+- Capture, import and clone no longer fail on the rare occasion that a newly generated Version
+  id is already taken.
+
+## Upgrading
+
+**Nothing to migrate.** Your data in `garrysmod/data/vetra/` is read as 1.0 wrote it, and your
+licence and activation are unchanged: no reactivation, no new server slot.
+
+<Steps>
+  <Step title="Delete the old folders">
+    Delete `vetra-framework` and `vetra-blueprints` from `garrysmod/addons/`. Do not copy the
+    new ones over the old.
+  </Step>
+  <Step title="Copy the 1.1 folders in">
+    From your new GmodStore download.
+  </Step>
+  <Step title="Restart the server">
+  </Step>
+</Steps>
+
+Going back to 1.0 is the same in reverse. Everything 1.1 saved is readable by 1.0, except that
+an adapter you disabled in 1.1 is enabled again under 1.0. Full detail in
+[Updating](/blueprints/updating).

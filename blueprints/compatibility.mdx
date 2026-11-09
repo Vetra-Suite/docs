@@ -1,0 +1,89 @@
+---
+title: "Compatibility"
+description: "What Blueprints 1.1 needs on the server and on the administrator's game, which clients have been tested, and which cannot run the interface."
+---
+
+Blueprints runs on the **server**. The only part that depends on the player's own game is the
+interface, and only administrators open it.
+
+## The server
+
+<ResponseField name="Garry's Mod" type="July 2021 update or newer" required>
+  A dedicated or listen server you control the files of. The server needs no browser, so its
+  operating system does not matter.
+</ResponseField>
+
+<ResponseField name="Outbound HTTPS" type="from the server">
+  For activation, licence verification, and Remote Deploy while you use it. See
+  [Working offline](/support/offline).
+</ResponseField>
+
+<ResponseField name="File downloads to clients" type="as for any addon">
+  The interface draws with the IBM Plex fonts that `vetra-framework` sends to connecting
+  clients, through the normal server download or your FastDL. If a client is missing one,
+  `vetra_blueprints_status` lists which.
+</ResponseField>
+
+Gamemode does not matter. Two adapters depend on another addon:
+
+| Adapter | Needs |
+| --- | --- |
+| DarkRP job spawns | DarkRP on **SQLite**. MySQL-backed job-spawn storage is not supported in 1.1. See [DarkRP](/blueprints/darkrp) |
+| PermaProps props | **MalboroDEV PermaProps**, Workshop item `220336312`. See [PermaProps](/blueprints/permaprops) |
+
+Where the addon is not installed, its adapter is listed as **Not installed** and everything
+else works normally.
+
+## The administrator's game
+
+The interface is drawn by the browser Garry's Mod embeds, and needs its **Chromium** engine.
+Which engine a game has depends on the operating system and the Steam beta branch
+(Steam, right-click Garry's Mod, **Properties**, **Betas**).
+
+### Tested working
+
+| Client | Engine | Tested |
+| --- | --- | --- |
+| Windows, default branch | Chromium 86 | In game, with the 1.1 release candidate, on a clean client joining a dedicated server |
+
+{/* OWNER: confirm the remaining rows in game with the final 1.1 build to move them up to "Tested working" (webui-m3-release.md section 5, A and B). */}
+
+### Expected to work, not yet tested with 1.1
+
+| Client | Engine | Why it is expected to work |
+| --- | --- | --- |
+| Windows, x86-64 branch | Chromium 86 | The same engine as the tested default branch |
+| macOS | Chromium 80 | The interface was used in game on macOS throughout its development; the final 1.1 build has not been re-checked there |
+| Linux, x86-64 branch | Chromium 80 | The same engine version as macOS. Not tested |
+
+The interface is built for Chromium 80, the oldest engine Garry's Mod ships, and every build is
+checked mechanically for anything newer.
+
+### Unsupported
+
+| Client | Engine | What happens |
+| --- | --- | --- |
+| Linux, default branch | Awesomium | Blueprints cannot draw its interface. It says so in chat, names the x86-64 branch, and opens nothing |
+| Linux, dev branch | Awesomium | The same |
+
+{/* OWNER: the Linux default-branch message has not been observed in game (webui-m3-release.md section 5, D1). */}
+
+On Linux, switch the administrator's own game to the **x86-64** branch. Nothing else changes:
+the server, your players and every console command work the same on every branch, because
+nothing but the interface needs the browser.
+
+<Note>
+Garry's Mod decides which browser a client has, not Blueprints. Blueprints never refuses a
+client by its branch or version number: the interface checks, when it starts, whether the
+browser can run it, and says so if it cannot.
+</Note>
+
+## Players
+
+Players install nothing and never see the interface. A player's operating system, branch or
+browser has no effect on anything Blueprints does.
+
+## Upgrading from 1.0
+
+1.1 reads everything 1.0 wrote, and going back to 1.0 is possible. See
+[Updating](/blueprints/updating).
