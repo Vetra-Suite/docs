@@ -96,8 +96,8 @@ Blueprints manages **props only**. Everything else PermaProps has saved is left 
 untouched and **counted**, never half-managed and never coerced into a prop.
 </Warning>
 
-The capture logs how many records it left unmanaged, and the **Adapters** screen tells you
-the same. A saved NPC is unmanaged by this adapter, and the standard NPC adapter will not
+Each capture that leaves records unmanaged says how many in the server console, with
+`vetra_debug 1` set. A saved NPC is unmanaged by this adapter, and the standard NPC adapter will not
 touch it either, because it carries PermaProps' marker.
 
 That gap is deliberate. Broadening the set of object types Blueprints manages is a product

@@ -24,7 +24,7 @@ so spawning works immediately with no map reload.
 
 <Warning>
 **Job-spawn management supports SQLite-backed DarkRP servers.** MySQL-backed DarkRP
-job-spawn storage is not supported in version 1.0.
+job-spawn storage is not supported in version 1.1.
 </Warning>
 
 The reason is structural rather than a missing feature. A capture must answer
@@ -40,7 +40,7 @@ delete every one of them.
 
 **The limit is scoped to this one adapter.** Props, NPCs and every other part of Blueprints
 work normally on a MySQL DarkRP server. You will see the DarkRP adapter listed as
-unavailable on the **Adapters** screen, with the sentence explaining why, and nothing else
+unavailable in the **Adapters** section, with the sentence explaining why, and nothing else
 changes.
 
 ## What it does not manage
@@ -90,10 +90,11 @@ server process restart.
 
 ## If it says unavailable
 
-Open the **Adapters** screen. The adapter reports one of:
+Open the **Adapters** section. On a server without DarkRP, the adapter is listed as **Not
+installed** and hidden by default: that is expected, and nothing needs doing. Otherwise it
+reports one of:
 
 | Reason | What to do |
 | --- | --- |
-| DarkRP is not running on this server | Nothing. Expected on a non-DarkRP server |
-| DarkRP is configured to use MySQL | Not supported in 1.0. The rest of Blueprints is unaffected |
+| DarkRP is configured to use MySQL | Not supported in 1.1. The rest of Blueprints is unaffected |
 | DarkRP's position tables are not readable yet | Usually a timing issue during boot. Check again after the map has fully loaded |

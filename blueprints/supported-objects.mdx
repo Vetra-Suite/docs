@@ -4,12 +4,45 @@ description: "Exactly what the four shipped adapters manage, what each of them c
 ---
 
 Blueprints is authoritative only over object types it has a compatible adapter for. Version
-1.0 ships four.
+1.1 ships four.
 
-You can see the same information live on the **Adapters** screen inside the product: which
-adapters are registered, which are available, why an unavailable one is unavailable, and
-what each declares. From the server console,
+You can see the same information live in the **Adapters** section inside the product: which
+adapters are registered, how each one stands on this server, why an unavailable one is
+unavailable, and what each declares. From the server console,
 `vetra_blueprints_adapter list` prints the same.
+
+## Adapter states
+
+| State | Meaning | Captured? |
+| --- | --- | --- |
+| **Available** | Registered, and the addon it needs (if any) is there and usable | Yes |
+| **Not installed** | The addon it integrates with is not on this server, such as DarkRP on a Sandbox server. Expected, not a fault. Hidden from the list by default | No |
+| **Unavailable** | The addon is there but cannot be used, with a sentence saying why, such as DarkRP on MySQL. Needs attention | No |
+| **Disabled** | An administrator switched it off. A choice, not a fault | No |
+
+An adapter that is not captured is left **out** of a new Version, rather than recorded as
+empty: a Version claiming a domain is empty would, restored, delete it.
+
+### Disabling an adapter
+
+An administrator can switch any adapter off, official or community, from its inspector in
+the **Adapters** section (**Disable this adapter**, then confirm), and on again with **Enable
+this adapter**. While it is disabled:
+
+- new Versions leave it out;
+- a restore, migration or deployment refuses that adapter's objects, with the reason, and
+  changes nothing else;
+- Versions already captured are not changed.
+
+The choice is kept on the server, in `garrysmod/data/vetra/blueprints/adapters.json`, with
+who made it and when, and it survives a restart. It cannot be changed while a restore or a
+deployment is running. Use it when an addon is managed some other way on this server, or when
+its adapter misbehaves here.
+
+<Note>
+Blueprints 1.0 ignores this setting. If you go back to 1.0, every adapter is enabled until 1.1
+runs again.
+</Note>
 
 ## The matrix
 
@@ -54,7 +87,7 @@ not, and an adapter must declare the weakest guarantee any of its records may ca
 <Warning>
 **A model change is refused, not attempted.** Swapping a model in place rebuilds the physics
 mesh, loses the motion state and invalidates every constraint the entity is part of. The
-honest operation is a replace (remove plus rebuild), which version 1.0 deliberately does not
+honest operation is a replace (remove plus rebuild), which Blueprints deliberately does not
 implement. The plan says so and offers you the option of excluding that object.
 </Warning>
 
@@ -113,7 +146,7 @@ spawn between jobs. Re-inserting the row under a different job would be a differ
 wearing an old identity.
 
 <Warning>
-**SQLite only.** MySQL-backed DarkRP job-spawn storage is not supported in version 1.0. On a
+**SQLite only.** MySQL-backed DarkRP job-spawn storage is not supported in version 1.1. On a
 MySQL server the adapter reports itself unavailable and its domain is left out of every
 Version, rather than capturing an incomplete world.
 
