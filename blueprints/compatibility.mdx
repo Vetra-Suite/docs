@@ -44,17 +44,15 @@ Which engine a game has depends on the operating system and the Steam beta branc
 
 | Client | Engine | Tested |
 | --- | --- | --- |
-| Windows, default branch | Chromium 86 | In game, with the 1.1 release candidate, on a clean client joining a dedicated server |
-
-{/* OWNER: confirm the remaining rows in game with the final 1.1 build to move them up to "Tested working" (webui-m3-release.md section 5, A and B). */}
+| Windows, default branch | Chromium 86 | In game, with 1.1, including a clean client joining a dedicated server |
+| Windows, x86-64 branch | Chromium 86 | In game, with 1.1 |
+| macOS | Chromium 80 | In game, with 1.1 |
 
 ### Expected to work, not yet tested with 1.1
 
 | Client | Engine | Why it is expected to work |
 | --- | --- | --- |
-| Windows, x86-64 branch | Chromium 86 | The same engine as the tested default branch |
-| macOS | Chromium 80 | The interface was used in game on macOS throughout its development; the final 1.1 build has not been re-checked there |
-| Linux, x86-64 branch | Chromium 80 | The same engine version as macOS. Not tested |
+| Linux, x86-64 branch | Chromium 80 | The same engine version as macOS, which is tested. Not tested on Linux |
 
 The interface is built for Chromium 80, the oldest engine Garry's Mod ships, and every build is
 checked mechanically for anything newer.
