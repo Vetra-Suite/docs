@@ -1,0 +1,182 @@
+---
+title: "Translate Blueprints"
+description: "Download the English text of Blueprints as one JSON file, translate it into your language, check it and send it back. Accepted translations ship in a later release, with credit if you want it."
+---
+
+{/* OWNER: do not publish before (1) the 50 % reward is approved and (2) GmodStore is confirmed able to issue a single-use, single-product coupon. Both are open in blueprints-1.1.1.md, section "Community translations". */}
+
+Blueprints shows its interface in the language of each administrator's game. Every word it
+shows comes from one **translation file** per language: English is the original, and every
+other language is a translation of it. You can add yours.
+
+## Languages
+
+| Language | Code | Status |
+| --- | --- | --- |
+| English | `en` | Original, ships with Blueprints |
+| Français | `fr` | Official, ships with Blueprints since 1.1.1 |
+
+A language is **official** once it has been reviewed, tested in game and shipped in a release.
+Until then it is not offered in Blueprints, even if a translation has been sent.
+
+## What you need
+
+- The English file, below. You do **not** need to own Blueprints to translate it.
+- A plain text editor that saves **UTF-8**: VS Code, Notepad++, Sublime Text, or any code
+  editor. Word processors break the file.
+- About a day of careful work: the file has a little over two thousand short texts.
+
+## 1. Download the English file
+
+{/* OWNER: after deploying, open https://docs.vetrasuite.com/downloads/vetra-blueprints-en-1.1.1.json and check it downloads the JSON (the local `mint dev` preview does not serve .json files; Mintlify's file docs list .json for all plans). If production does not serve it either, point the card below at https://github.com/lhnfe/vetra-docs/blob/main/downloads/vetra-blueprints-en-1.1.1.json instead. */}
+
+<Card title="vetra-blueprints-en-1.1.1.json" icon="file-json" href="/downloads/vetra-blueprints-en-1.1.1.json">
+  The English text of Blueprints 1.1.1. Save it, then rename it after your language's code,
+  for example `de.json`, `es.json` or `pt-br.json`.
+</Card>
+
+Use the language codes Garry's Mod uses (its language option), in lower case: `de`, `es`,
+`pl`, `pt-br`, `zh-cn`, `zh-tw` and so on. Blueprints picks a translation automatically from
+that setting.
+
+## 2. Translate the values, never the keys
+
+The file is a list of areas, each holding texts. On every line, the part **left** of the colon
+is a **key**: Blueprints looks texts up by it. The part **right** of the colon is the
+**value**: the text people read. Translate values only.
+
+```json
+"versions": {
+  "captureButton": "Capture version",
+  "objectsSelected_one": "{count} object selected",
+  "objectsSelected_other": "{count} objects selected"
+}
+```
+
+becomes, in German:
+
+```json
+"versions": {
+  "captureButton": "Version erfassen",
+  "objectsSelected_one": "{count} Objekt ausgewählt",
+  "objectsSelected_other": "{count} Objekte ausgewählt"
+}
+```
+
+<Steps>
+  <Step title="Keep every key exactly as it is">
+    Do not translate, rename, add or remove a key, and keep the quotes, colons, commas and
+    braces as they are.
+  </Step>
+  <Step title="Set your language's name">
+    The first area, `meta`, has one value: `"name": "English"`. Replace it with your
+    language's own name, as its speakers write it: `Deutsch`, `Español`, `Polski`.
+  </Step>
+  <Step title="Keep every placeholder">
+    A word in braces, like `{count}`, `{name}` or `{reason}`, is filled in by Blueprints: a
+    number, a name, a message. Keep each one exactly as written, braces included. You can move
+    it anywhere in the sentence your language needs.
+  </Step>
+  <Step title="Keep console commands and key names">
+    Anything that starts with `vetra_` (a console command), `!vblueprints`, and key names such
+    as `Esc` or `Enter` stay exactly as they are.
+  </Step>
+  <Step title="Plurals">
+    Keys ending in `_one` and `_other` are the singular and plural of one text. Translate both.
+    If your language has more plural forms (Polish, Russian, Czech and others have `_few` and
+    `_many`), add those keys next to them with the same start, for example
+    `objectsSelected_few`. We tell you which forms your language needs when we check the file.
+  </Step>
+  <Step title="Plain text only">
+    No HTML, no formatting, no line breaks inside a value. Use your language's normal
+    punctuation and typographic apostrophes and quotation marks. Do not use an em dash.
+  </Step>
+  <Step title="Keep it short where the English is short">
+    Buttons, column titles and labels have little room. Prefer the shortest natural wording.
+  </Step>
+</Steps>
+
+**Context.** Blueprints is a server administration tool for Garry's Mod: a **Version** is a
+saved state of the server's objects, **Restore** brings a Version back, **Deploy** sends one
+from a development server to a production server, and an **adapter** connects another addon.
+When a word is ambiguous, the key's name and its neighbours say where it appears. Ask us
+rather than guess.
+
+## 3. Check your file
+
+Before you send it:
+
+- Open it in your code editor: it should show no error. Or paste it into any JSON validator.
+- Search for `{` and check every placeholder against the English.
+- Make sure the file is saved as UTF-8 and named after your language code.
+
+When you send it, we run it through the same automated check the official languages pass, and
+send you the report. It lists any missing or extra key, any placeholder or console command that
+changed, plural forms your language needs, and any text far longer than its English.
+
+## 4. Send it
+
+Open an issue on the public documentation repository, titled `Translation: <language> (<code>)`,
+and attach your file (zip it if GitHub refuses a `.json`):
+
+<Card title="Open a translation issue" icon="github" href="https://github.com/lhnfe/vetra-docs/issues/new">
+  github.com/lhnfe/vetra-docs
+</Card>
+
+No GitHub account? Send the file through a message to Vetra on GmodStore instead.
+
+In the issue or the message, say:
+
+- the language and its code;
+- whether you want to be credited, and under which name (or none);
+- that you agree to the terms below.
+
+**Is someone already on your language?** Look at the open translation issues first. If one
+exists, comment on it: we put you in touch, and two people can share one translation. A
+language is held by the first open issue for 30 days without news; after that, anyone can take
+it over.
+
+## How we review it
+
+1. **The automated check** above. A file that fails is sent back with its report.
+2. **A language review** by a fluent speaker: natural wording, consistent terms, the right
+   meaning in context, nothing unrelated or offensive. We may edit the text.
+3. **A test in game**, on the screens and in the window sizes Blueprints supports.
+4. **A release.** The language then appears in Blueprints' Language setting, and in the table
+   above.
+
+We reply on the issue or the message at each step. A translation is not accepted just because
+it was sent, and we may decline one that does not meet these steps.
+
+## Reward
+
+{/* OWNER: proposed at 50 %, to be approved before this page is published. */}
+
+The contributor of an accepted, **complete** translation of a **new** language receives a
+**50 % discount on one Vetra Blueprints licence**, sent personally after the translation is
+accepted.
+
+- One reward per new language, for the first complete translation we accept.
+- No reward for an incomplete, duplicate or unreviewed translation, or for corrections to a
+  language that already ships (we credit those, with your agreement).
+- When two people complete a language together, tell us how to share the credit; the one
+  reward goes to whoever you name.
+- The reward is sent by hand after acceptance, never automatically, and is not exchangeable
+  for money.
+
+## Terms
+
+By sending a translation, you confirm that:
+
+- it is your own work, or you have the right to send it;
+- Vetra may use, edit, distribute and keep maintaining it as part of its products, without
+  limit in time, at no cost, and may let others translate from it;
+- you do not need to be credited, unless you ask to be.
+
+We ask for nothing else about you. Your GitHub or GmodStore name is enough, and we use it only
+to reply and to send a reward.
+
+## Credits
+
+Translations that ship credit their contributors, with their agreement, here and in the
+release notes of the version that brings them.

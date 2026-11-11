@@ -1,12 +1,66 @@
 ---
-title: "What's new in 1.1"
-description: "Blueprints 1.1 replaces the window with a fullscreen interface, adds a switch for each adapter, and changes nothing about your data or your licence."
+title: "What's new"
+description: "Blueprints 1.1.1 adds a windowed mode and a French interface. Blueprints 1.1 replaced the window with a fullscreen interface. Neither changes your data or your licence."
 ---
+
+{/* OWNER: 1.1.1 is a release candidate. Publish this section with the GmodStore upload, not before. */}
+
+## 1.1.1: a windowed mode, and French
+
+Blueprints **1.1.1** adds two things to the interface. Your data, your licence, every server
+operation and every console command are unchanged, and the server is not affected: both are
+settings of your own game.
+
+### Fullscreen or windowed
+
+Blueprints can now open in a **window** over the game instead of fullscreen. Fullscreen stays
+the default.
+
+- Switch with the button beside **Close** in the title bar, by double-clicking the title bar,
+  or in the **Display** panel.
+- Drag the title bar to move the window, and its edges or corners to resize it.
+- The mode, the window's position and its size are remembered on your computer. The window
+  always stays whole on your screen, including after you change resolution.
+- Switching never reloads the interface: a dialog you were filling in stays as it was.
+
+### Your language
+
+The interface is available in **English** and **French**. The **Language** setting in the
+**Display** panel offers:
+
+- **Automatic (Garry's Mod)**, the default: Blueprints follows the language set in Garry's
+  Mod's own options. A language Blueprints does not have yet is shown in English.
+- **English**, or **Français**: your choice, whatever the game is set to.
+
+The change applies at once, without reopening Blueprints, and only to your own client. The
+message shown in chat when the interface cannot open, and the controls shown while you place
+something in the world, follow the same setting.
+
+Names, ids, maps and the messages the server itself sends stay as they are.
+
+### Translate Blueprints into your language
+
+The English text is one JSON file anyone can download, translate and send back. Accepted
+translations ship in a later release. See [Translate Blueprints](/blueprints/translations).
+
+### Upgrading to 1.1.1
+
+**Nothing to migrate.** Delete the old `vetra-framework` and `vetra-blueprints` folders, copy
+the new ones in and restart, as for every update. Going back to 1.1 is the same in reverse.
+
+<CardGroup cols={2}>
+  <Card title="The interface" icon="layout-panel-left" href="/blueprints/interface#display-preferences">
+    The window, the language, scale and density.
+  </Card>
+  <Card title="Translate Blueprints" icon="languages" href="/blueprints/translations">
+    Download the English, translate it, send it back.
+  </Card>
+</CardGroup>
+
+## 1.1: a new, fullscreen interface
 
 Blueprints **1.1** changes how you work with the product, not what it does to your server. Your
 data, your licence, every server operation and every console command carry over unchanged.
-
-## A new, fullscreen interface
 
 `!vblueprints` and `vetra_blueprints` now open Blueprints as one **fullscreen workspace** with
 all nine sections: Overview, Versions, Objects, Groups, Migration, Restore, Deploy, Remote
@@ -33,7 +87,7 @@ nothing. The server, its players and every console command are not affected.
   </Card>
 </CardGroup>
 
-## Added
+### Added
 
 <AccordionGroup>
   <Accordion title="Disable an adapter" icon="toggle-left">
@@ -61,13 +115,13 @@ nothing. The server, its players and every console command are not affected.
   </Accordion>
 </AccordionGroup>
 
-## Changed
+### Changed
 
 - **A lighter framework.** `vetra-framework` no longer ships the 1.0 window's components or the
   icon images only they drew. The fonts stay: the interface and the in-world placement overlay
   draw with them. The download still holds the same three folders as 1.0.
 
-## Fixed
+### Fixed
 
 - A write that succeeded, but whose result was too large to send back (a very large group,
   migration or restore library), was reported as refused. It is now reported as done, and the
@@ -80,7 +134,7 @@ nothing. The server, its players and every console command are not affected.
 - Capture, import and clone no longer fail on the rare occasion that a newly generated Version
   id is already taken.
 
-## Upgrading
+### Upgrading
 
 **Nothing to migrate.** Your data in `garrysmod/data/vetra/` is read as 1.0 wrote it, and your
 licence and activation are unchanged: no reactivation, no new server slot.

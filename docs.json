@@ -89,6 +89,12 @@
               "blueprints/updating",
               "blueprints/uninstalling"
             ]
+          },
+          {
+            "group": "Community",
+            "pages": [
+              "blueprints/translations"
+            ]
           }
         ]
       },
@@ -192,7 +198,8 @@
           { "label": "Overview", "href": "/blueprints/overview" },
           { "label": "Installation", "href": "/blueprints/installation" },
           { "label": "Compatibility", "href": "/blueprints/compatibility" },
-          { "label": "What's new in 1.1", "href": "/blueprints/whats-new" },
+          { "label": "What's new", "href": "/blueprints/whats-new" },
+          { "label": "Translate Blueprints", "href": "/blueprints/translations" },
           { "label": "Supported objects", "href": "/blueprints/supported-objects" }
         ]
       },

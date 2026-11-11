@@ -1,6 +1,6 @@
 ---
 title: "The interface"
-description: "One fullscreen workspace with nine sections, driven by mouse or keyboard, drawn by the browser built into Garry's Mod."
+description: "One workspace with nine sections, fullscreen or in a window, in English or French, driven by mouse or keyboard, drawn by the browser built into Garry's Mod."
 ---
 
 Since 1.1, Blueprints opens as one **fullscreen workspace** drawn by the game's built-in
@@ -14,7 +14,7 @@ it makes is a request the server checks, exactly as before.
 
 | Area | What it holds |
 | --- | --- |
-| **Title bar** | Where you are (a breadcrumb), the current map, the **Display** panel, and **Close** (`Esc`) |
+| **Title bar** | Where you are (a breadcrumb), the current map, the **Display** panel, the fullscreen or window button, and **Close** (`Esc`) |
 | **Navigation** | The nine sections, numbered `01` to `09` |
 | **Section** | A list on the left and, beside it, an **inspector** for whatever is selected. The inspector holds that item's details and its actions |
 | **Status bar** | Counts for the section, the keys that work here, the managed object count in the world, adapters needing attention, and the licence state |
@@ -106,9 +106,31 @@ screen. The interface steps aside, you place, and it comes back exactly as you l
 Cancelling a placement changes nothing, and `Esc` cancels the placement rather than opening
 the game menu.
 
+## Fullscreen or windowed
+
+Since 1.1.1, Blueprints can open in a **window** over the game instead of fullscreen.
+Fullscreen is the default.
+
+| To | Do |
+| --- | --- |
+| Switch between fullscreen and a window | The button beside **Close**, a double-click on the title bar, or **Display**, **Display mode** |
+| Move the window | Drag the title bar (anywhere but its buttons) |
+| Resize it | Drag an edge or a corner |
+
+The window keeps everything the fullscreen interface has; on a smaller window, lists scroll
+and the navigation narrows to its icons. Switching never reloads the interface, so a dialog you
+were filling in stays as it was.
+
+The first window is centred and takes about four fifths of the screen. Its position and size
+are remembered as a proportion of the screen, so after a resolution change it keeps its shape.
+It can never end up off screen: it is always kept whole on the screen and at least 800 by 480
+pixels, or the whole screen on a smaller one.
+
+{/* OWNER: confirm dragging, resizing and the double-click in game on Windows and macOS (blueprints-1.1.1.md, owner protocol). */}
+
 ## Display preferences
 
-**Display**, in the title bar, sets two things for your own client:
+**Display**, in the title bar, sets four things for your own client:
 
 <ResponseField name="Scale" type="0.80 to 1.60, in steps of 0.05">
   The size of everything in the interface. The default in game is **1.10**. On a screen too
@@ -120,9 +142,30 @@ the game menu.
   Row height in lists: 20, 24 or 30 units. The default is **Relaxed**.
 </ResponseField>
 
-Both apply at once and are kept on your computer for the next game session. They are stored in
-the client convars `vetra_blueprints_scale` and `vetra_blueprints_density`, which you can also
-set from the console.
+<ResponseField name="Display mode" type="Fullscreen or Windowed">
+  See [Fullscreen or windowed](#fullscreen-or-windowed). The default is **Fullscreen**.
+</ResponseField>
+
+<ResponseField name="Language" type="Automatic (Garry's Mod), English or Français">
+  **Automatic**, the default, follows the language set in Garry's Mod's own options; a language
+  Blueprints does not have yet is shown in English. Choosing a language overrides the game's.
+  The change applies at once, without reopening Blueprints. Names, ids, maps and the messages
+  the server itself sends are shown as they are. Want Blueprints in your language? See
+  [Translate Blueprints](/blueprints/translations).
+</ResponseField>
+
+All four apply at once and are kept on your computer for the next game session. They are
+stored in client convars, which you can also set from the console:
+
+| Convar | Values |
+| --- | --- |
+| `vetra_blueprints_scale` | `0.80` to `1.60` |
+| `vetra_blueprints_density` | `compact`, `default`, `relaxed` |
+| `vetra_blueprints_display` | `fullscreen`, `windowed` |
+| `vetra_blueprints_language` | `auto`, `en`, `fr` |
+
+`vetra_blueprints_window` holds the window's position and size. Set it to an empty value to
+put the window back to its first size and place.
 
 ## Limitations
 

@@ -53,7 +53,8 @@ vetra_blueprints
 
 When the interface cannot start, Blueprints says why in **one chat line**, visible only to
 you, prints the detail in your console, and opens nothing. Your server and its players are
-not affected. There are three kinds:
+not affected. Since 1.1.1 the chat line is in your interface language (the console keeps it in
+English, for a support request); the English is quoted below. There are three kinds:
 
 <AccordionGroup>
   <Accordion title="Cannot open on this client" icon="monitor-x">
@@ -108,6 +109,30 @@ wait a few seconds, then close it. The file is written on **your** computer, in
 `garrysmod/data/vetra/webui/`, named `diag_<date>_<time>.txt`. It holds facts about the
 browser engine, fonts, layout and the interface's connection, and nothing about your server's
 contents.
+
+## The window is too small, or not where I expect it
+
+The window is always kept whole on your screen, so it cannot be lost. To put it back to its
+first size and place, run this in your **client** console, then open Blueprints again:
+
+```text
+vetra_blueprints_window ""
+```
+
+To go back to fullscreen without opening Blueprints:
+
+```text
+vetra_blueprints_display fullscreen
+```
+
+## The interface is not in my language
+
+**Display**, **Language** sets it. On **Automatic**, Blueprints follows the language in Garry's
+Mod's own options, and shows English when it does not have that language yet. Blueprints 1.1.1
+has English and French. Want to add yours? See [Translate Blueprints](/blueprints/translations).
+
+Names, ids and maps are never translated, and messages the server itself sends (a refusal's
+reason, for instance) are shown as the server wrote them.
 
 ## It opens but every section is empty
 
