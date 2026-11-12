@@ -57,7 +57,7 @@ Other useful commands:
 ```sh
 mint a11y            # accessibility checks
 mint format          # format MDX files
-mint --version
+mint version         # the CLI and client versions (current CLIs answer --version with "unknown")
 ```
 
 ## Editing
