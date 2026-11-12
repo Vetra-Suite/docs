@@ -80,11 +80,13 @@ silently. Most domains have nothing to draw and that is not a mistake.
 model": an adapter that forgot the field and an adapter whose domain has no model need
 different answers.
 
-Numbers are clamped rather than trusted: `radius` to 1 to 512, `skin` to 0 to 255,
-coordinates to the world half-extent, and a model path is validated. A value outside those is
-corrected silently. A *malformed descriptor* (a bad model path, `mins` above `maxs`, an
-unknown `kind`) is **downgraded to a point marker with a warning naming your adapter**, never
-refused: a cosmetic mistake must not block a migration.
+Numbers are corrected rather than trusted, silently: `radius` is clamped to 1 to 512 and is
+8 when missing, `skin` is rounded down and becomes 0 when outside 0 to 255, and `bounds`
+coordinates are clamped to the world half-extent (16384). A model path must be at most 128
+characters, match `^[%w_%-/%.]+%.mdl$` and contain no `..`. A *malformed descriptor* (a bad
+model path, `mins` above `maxs`, a `bounds` missing its numbers, a missing or unknown `kind`,
+or a preview that is not a table) is **downgraded to a point marker with a warning naming
+your adapter**, never refused: a cosmetic mistake must not block a migration.
 
 <Warning>
 An adapter never sends a function, a material, a colour or a render callback to a client. A
@@ -143,6 +145,10 @@ domain that indexes `transform.pos` errors on every real create, so guard it:
 Materialize = function(_, source, transform)
     local pos = transform and transform.pos or nil
 ```
+
+The contract runner passes `nil` too, exactly as the restore planner does: the read-only run
+passes it to `PrepareMaterialize`, and `vetra_blueprints_adapter test <id> full` passes it to
+`Materialize`. An unguarded index fails there, not in production.
 
 ## `ReleaseMaterialized`
 

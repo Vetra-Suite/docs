@@ -12,12 +12,6 @@ feature the product is named for. Three is enough for the setups most creators a
 a development server and a live one, with room for a third if you keep a testing server
 between them.
 
-To see what a licence is using, run this in the server console on any activated server:
-
-```text
-vetra_license_status
-```
-
 ### Out of slots?
 
 Open a support ticket on the product page. Tell us which server you no longer use and we
@@ -38,8 +32,11 @@ list, your addon list, your configuration files, or the contents of your server.
 
 ## The states
 
-`vetra_license_status` names one state, and its `action` line always says what to do next.
-Inside Blueprints, **Overview** and the status bar show the same state in words:
+`vetra_license_status` names one state on its `state` line, with the reason in brackets, and
+its `action` line suggests what to do next. Where the two differ, the accordions below say
+which to follow.
+Inside Blueprints, **Overview** and the status bar show the same state in words (in English
+below; the French interface shows the same states in French):
 
 | `vetra_license_status` | Overview |
 | --- | --- |
@@ -68,7 +65,10 @@ Inside Blueprints, **Overview** and the status bar show the same state in words:
   </Accordion>
 
   <Accordion title="PENDING" icon="loader">
-    A check is in flight. Wait a few seconds.
+    A check is in flight. Wait a few seconds. If it still says `PENDING` after a minute, run
+    `vetra_license_refresh`, then `vetra_license_status` again. If the refresh answers
+    `not refreshing: too soon` or `already refreshing`, a check ran in the last 30 seconds:
+    wait, then run it again.
   </Accordion>
 
   <Accordion title="NEEDS_ACTIVATION" icon="circle-alert">
@@ -80,7 +80,8 @@ Inside Blueprints, **Overview** and the status bar show the same state in words:
     - the licence has no free slots.
 
     Fix the cause and restart: automatic activation runs again on every start that has no
-    credential yet.
+    credential yet. The `action` line mentions `vetra_license_activate` and an activation
+    code: you need one only if support gives you one.
   </Accordion>
 
   <Accordion title="DENIED" icon="circle-x">
@@ -98,8 +99,9 @@ Inside Blueprints, **Overview** and the status bar show the same state in words:
     Paid operations are paused. **Nothing has been deleted:** your Versions, groups and
     deployments are intact.
 
-    Restore outbound HTTPS and it recovers on the next check. If the status names a
-    different cause, follow what it says or open a ticket.
+    If the `state` line reads `RECOVERY_REQUIRED (offline_too_long)`, restore outbound HTTPS
+    and it recovers on the next check, whatever the `action` line says. For any other reason
+    in brackets, open a ticket.
   </Accordion>
 </AccordionGroup>
 
