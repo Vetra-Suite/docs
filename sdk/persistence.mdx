@@ -25,8 +25,9 @@ That single fact decides the shape of your whole adapter.
 
     It also avoids a subtler class of bug: a value that the live entity reports differently
     from the way it is stored. Blueprints' PermaProps adapter reads the frozen flag from the
-    record, because a frozen saved prop usually has no physics object and the live answer to
-    "is this frozen" is `false` for exactly the props that are.
+    record, because a frozen saved prop stands in the world with a static physics object that
+    reports itself free to move, so the live answer to "is this frozen" is `false` for exactly
+    the props that are.
   </Step>
 
   <Step title="Write the record first, the entity second">

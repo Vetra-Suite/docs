@@ -4,7 +4,9 @@ description: "A complete adapter with all five capabilities, shipped with Bluepr
 ---
 
 `vetra-example-adapter` ships in the same archive as the product. It is optional: install it
-only if you are writing an adapter and want a working one to read.
+only if you are writing an adapter and want a working one to read. Vetra's own test suite
+loads this exact file and runs the whole contract against it, so it cannot quietly stop
+matching the SDK.
 
 ```text
 vetra-example-adapter/

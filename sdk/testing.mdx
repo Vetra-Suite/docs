@@ -44,6 +44,19 @@ releases a spawn by rewriting that job's spawn set, ids preserved.
 Run `full` on a development server. That is why it is refused to players, admins included.
 </Warning>
 
+### Where the fixture comes from
+
+**Your own `Materialize`.** The runner takes one record your `Collect` produced, rebuilds it,
+works on the copy, and destroys it again. That is what keeps every destructive check off your
+real objects: it operates on an object the runner created seconds earlier and never targets
+one that was already there.
+
+The consequence: **an adapter that cannot `materialize` has no fixture**, so every
+destructive check reports NOT RUN with that reason rather than being pointed at somebody's
+real data. If you declare `transform` or `properties` without `materialize`, every full run
+lists them under `DECLARED BUT NOT EXERCISED`. The same applies to an adapter that collects
+nothing, and to `transform` when your records carry no transform.
+
 ### Reading the report
 
 ```text
@@ -85,6 +98,25 @@ VETRA BLUEPRINTS: ADAPTER CONTRACT (READ-ONLY)
 so in its verdict. A full run against an empty domain prints `DECLARED BUT NOT EXERCISED` for
 every capability it could not reach, because with no record to copy there is no fixture to
 work on.
+
+This NOT RUN is fine, because you did not claim the capability:
+
+```text
+  [NOT RUN] transform contract
+            the adapter does not declare transform
+```
+
+This one, from a full run of an adapter that declares all five capabilities, on an empty
+domain, is not:
+
+```text
+  [NOT RUN] materialize contract
+            the adapter collected nothing, so the runner has no record to rebuild and refuses to invent one
+
+  DECLARED BUT NOT EXERCISED: materialize, properties, remove, snapshot, transform
+  This run proves nothing about those capabilities. Create at least one object in this
+  domain and run the contract again.
+```
 
 The full run adds the fixture checks: that `Materialize` builds exactly one object with a
 **new** identity, that a move and your properties read back, that `ReleaseMaterialized` and
